@@ -1,22 +1,28 @@
-#!/usr/bin/env ruby
+#! /usr/bin/env ruby
+#  encoding: UTF-8
+#   grahpite_tcp.rb
 #
-# Grapite TCP handler
-# ===
+# DESCRIPTION:
+#   TCP stats emitter for graphite
 #
-# This handler sends metrics to a Graphite server via
-# TCP socket.
+#   Author / Maintainer: Eric Lakich (github: ericlakich)
 #
-# Compatible checks should generate output in the format:
-#   metric.path.one value timestamp\n
-#   metric.path.two value timestamp\n
+# OUTPUT:
+#   metric data
 #
-# Graphite 'server' and 'port' must be specified in a config file
-# in /etc/sensu/conf.d.  See graphite_tcp.json for an example.
+# PLATFORMS:
+#   Linux
 #
-# Copyright 2012 Joe Miller <http://joemiller.me>
+# DEPENDENCIES:
+#   gem: sensu-plugin
+#   gem: socket
 #
-# Released under the same terms as Sensu (the MIT license); see LICENSE
-# for details.
+# USAGE:
+#
+# NOTES:
+#
+# LICENSE:
+#
 
 require 'rubygems' if RUBY_VERSION < '1.9.0'
 require 'sensu-handler'
