@@ -3,8 +3,8 @@
 This plugin is designed to be a Sensu stats emitter for time series tracking of Linux system stats.
 
 ## Sensu/Ruby Environment Prerequisites 
-gem: sensu-plugin
-gem: socket
+- gem: sensu-plugin
+- gem: socket
 
 ## Handler
 
