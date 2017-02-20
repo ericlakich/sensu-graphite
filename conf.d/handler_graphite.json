@@ -1,0 +1,12 @@
+{
+ "graphite": {
+    "server":"localhost",
+    "port":"2003"
+ },
+ "handlers": {
+       "graphite": {
+         "type": "pipe",
+         "command": "/opt/sensu/embedded/bin/ruby /etc/sensu/handlers/graphite-tcp.rb"
+       }
+ }
+}
