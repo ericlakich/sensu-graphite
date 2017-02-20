@@ -14,8 +14,8 @@
 #   Linux
 #
 # DEPENDENCIES:
-#   gem: sensu-plugin
-#   gem: socket
+#   gem: rubygems
+#   gem: sensu-handler
 #
 # USAGE:
 #
