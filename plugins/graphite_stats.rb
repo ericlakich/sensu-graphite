@@ -3,8 +3,8 @@
 #   grahpite_stats.rb
 #
 # DESCRIPTION:
-#   This plugin uses vmstat to collect basic system metrics, produces
-#   Graphite formated output.
+#   This plugin uses /proc to collect basic system metrics,
+#   produces Graphite formated output.
 #
 #   Author / Maintainer: Eric Lakich (github: ericlakich)
 #
@@ -116,23 +116,23 @@ class VMStat < Sensu::Plugin::Metric::CLI::Graphite
         time_irq = cpu_result[5]
         time_soft_irq = cpu_result[5]
 
-        time_total = time_user.to_i + time_nice.to_i + time_system.to_i + time_idle.to_i + time_io_wait.to_i + time_irq.to_i + time_soft_irq.to_i
+        time_total = time_user.to_f + time_nice.to_f + time_system.to_f + time_idle.to_f + time_io_wait.to_f + time_irq.to_f + time_soft_irq.to_f
 
-        pct_user = cpu_result[1].to_i / time_total.to_i
-        pct_nice = cpu_result[2].to_i / time_total.to_i
-        pct_system = cpu_result[3].to_i / time_total.to_i
-        pct_idle = cpu_result[4].to_i / time_total.to_i
-        pct_io_wait = cpu_result[5].to_i / time_total.to_i
-        pct_irq = cpu_result[6].to_i / time_total.to_i
-        pct_soft_irq = cpu_result[7].to_i / time_total.to_i
+        pct_user = (cpu_result[1].to_f / time_total.to_f) * 100
+        pct_nice = (cpu_result[2].to_f / time_total.to_f) * 100
+        pct_system = (cpu_result[3].to_f / time_total.to_f) * 100
+        pct_idle = (cpu_result[4].to_f / time_total.to_f) * 100
+        pct_io_wait = (cpu_result[5].to_f / time_total.to_f) * 100
+        pct_irq = (cpu_result[6].to_f / time_total.to_f) * 100
+        pct_soft_irq = (cpu_result[7].to_f / time_total.to_f) * 100
 
-        output [config[:scheme], "compute", cpu_result[0], "pct", "user"].join('.'), pct_user, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "nice"].join('.'), pct_nice, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "system"].join('.'), pct_system, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "idle"].join('.'), pct_idle, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "io_wait"].join('.'), pct_io_wait, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "irq"].join('.'), pct_irq, timestamp
-        output [config[:scheme], "compute", cpu_result[0], "pct", "soft_irq"].join('.'), pct_soft_irq, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "user"].join('.'), pct_user.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "nice"].join('.'), pct_nice.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "system"].join('.'), pct_system.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "idle"].join('.'), pct_idle.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "io_wait"].join('.'), pct_io_wait.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "irq"].join('.'), pct_irq.to_i, timestamp
+        output [config[:scheme], "compute", cpu_result[0], "pct", "soft_irq"].join('.'), pct_soft_irq.to_i, timestamp
       end
 
       input = `cat /proc/loadavg`
@@ -148,3 +148,4 @@ class VMStat < Sensu::Plugin::Metric::CLI::Graphite
     ok
   end
 end
+
